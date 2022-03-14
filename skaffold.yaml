@@ -1,0 +1,61 @@
+apiVersion: skaffold/v2beta27
+kind: Config 
+deploy: 
+  kubectl:
+    manifests:
+      - ./infra/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: srp254/foodapp-app-auth-image
+      context: Auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '/*'
+    - image: srp254/foodapp-app-cart-image
+      context: cart
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '/*'
+    - image: srp254/foodapp-app-menu-image
+      context: cart
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '/*'
+    - image: srp254/foodapp-app-client-image
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '/*'
+    # - image: srp254/foodapp-app-events-image
+    #   context: Events
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - dest: .
+    #         src: '/*'
+    # - image: srp254/foodapp-app-querry-image
+    #   context: Querry
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - dest: .
+    #         src: '/*'
+
+            
+  

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodapp-cart-depl
+spec:
+  replicas : 1
+  selector:
+    matchLabels:
+      app : foodapp-cart-pod
+  template:
+    metadata:
+      labels:
+        app: foodapp-cart-pod
+    spec:
+      containers:
+        - name: foodapp-cart-container
+          image: srp254/foodapp-app-cart-image
+          imagePullPolicy: Never
+---
+apiVersion : v1
+kind : Service
+metadata: 
+  name: foodapp-cart-srv
+spec:
+  type: ClusterIP
+  selector:
+    app : foodapp-cart-pod
+  ports:
+    - name: foodapp-cart-port
+      protocol: TCP
+      port: 4003
+      targetPort: 4003
+

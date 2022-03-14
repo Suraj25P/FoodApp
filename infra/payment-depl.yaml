@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodapp-payment-depl
+spec:
+  replicas : 1
+  selector:
+    matchLabels:
+      app : foodapp-payment-pod
+  template:
+    metadata:
+      labels:
+        app: foodapp-payment-pod
+    spec:
+      containers:
+        - name: foodapp-payment-container
+          image: srp254/foodapp-app-payment-image
+          imagePullPolicy: Never
+---
+apiVersion : v1
+kind : Service
+metadata: 
+  name: foodapp-payment-srv
+spec:
+  type: ClusterIP
+  selector:
+    app : foodapp-payment-pod
+  ports:
+    - name: foodapp-payment-port
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
+

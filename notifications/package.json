@@ -1,0 +1,21 @@
+{
+  "name": "notifications",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@srpfoodapp/comman": "^1.0.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "node-nats-streaming": "^0.3.2",
+    "nodemon": "^2.0.15",
+    "twilio": "^3.75.1"
+  }
+}

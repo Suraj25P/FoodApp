@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodapp-menu-depl
+spec:
+  replicas : 1
+  selector:
+    matchLabels:
+      app : foodapp-menu-pod
+  template:
+    metadata:
+      labels:
+        app: foodapp-menu-pod
+    spec:
+      containers:
+        - name: foodapp-menu-container
+          image: srp254/foodapp-app-menu-image
+          imagePullPolicy: Never
+---
+apiVersion : v1
+kind : Service
+metadata: 
+  name: foodapp-menu-srv
+spec:
+  type: ClusterIP
+  selector:
+    app : foodapp-menu-pod
+  ports:
+    - name: foodapp-menu-port
+      protocol: TCP
+      port: 4001
+      targetPort: 4001
+

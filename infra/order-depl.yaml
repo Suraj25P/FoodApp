@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodapp-orders-depl
+spec:
+  replicas : 1
+  selector:
+    matchLabels:
+      app : foodapp-orders-pod
+  template:
+    metadata:
+      labels:
+        app: foodapp-orders-pod
+    spec:
+      containers:
+        - name: foodapp-orders-container
+          image: srp254/foodapp-app-orders-image
+          imagePullPolicy: Never
+---
+apiVersion : v1
+kind : Service
+metadata: 
+  name: foodapp-orders-srv
+spec:
+  type: ClusterIP
+  selector:
+    app : foodapp-orders-pod
+  ports:
+    - name: foodapp-orders-port
+      protocol: TCP
+      port: 4004
+      targetPort: 4004
+

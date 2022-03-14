@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: foodapp.com
+      http:
+        paths:      
+          - path: /api/auth/?(.*)
+            backend:
+              serviceName: foodapp-auth-srv
+              servicePort: 4001
+          - path: /api/menu/?(.*)
+            backend:
+              serviceName: foodapp-menu-srv
+              servicePort: 4002
+          - path: /api/cart/?(.*)
+            backend:
+              serviceName: foodapp-cart-srv
+              servicePort: 4003
+          - path: /api/order/?(.*)
+            backend:
+              serviceName: foodapp-orders-srv
+              servicePort: 4004
+          - path: /?(.*)
+            backend:
+              serviceName: foodapp-client-srv
+              servicePort: 3000

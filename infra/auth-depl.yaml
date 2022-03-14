@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foodapp-auth-depl
+spec:
+  replicas : 1
+  selector:
+    matchLabels:
+      app : foodapp-auth-pod
+  template:
+    metadata:
+      labels:
+        app: foodapp-auth-pod
+    spec:
+      containers:
+        - name: foodapp-auth-container
+          image: srp254/foodapp-app-auth-image
+          imagePullPolicy: Never
+---
+apiVersion : v1
+kind : Service
+metadata: 
+  name: foodapp-auth-srv
+spec:
+  type: ClusterIP
+  selector:
+    app : foodapp-auth-pod
+  ports:
+    - name: foodapp-auth-port
+      protocol: TCP
+      port: 4001
+      targetPort: 4001
+
