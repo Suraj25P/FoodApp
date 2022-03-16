@@ -1,12 +1,12 @@
-const { requireAuth, isAdmin ,Publisher} = require('@srpfoodapp/comman');
+const { requireAuth, isAdmin ,Publisher,Subject} = require('@srpfoodapp/comman');
 const express = require('express');
-const { populate } = require('../models/order');
 const Order = require('../models/order');
 const router = express.Router()
+const natsWrapper = require('../events/nats-wrapper')
 
 router.post('/api/orders/update',requireAuth,isAdmin, async (req, res) => {
     const { id, status,phoneNo } = req.body
-    console.log(id,status)
+    console.log(id,status,phoneNo)
     try{
         //const newItem = await Menu.updateOne({ _id: req.params.itemId }, editItem);
         Order.findByIdAndUpdate({ _id: id },{"status":status} , {new: true}, async(err, result) => {
